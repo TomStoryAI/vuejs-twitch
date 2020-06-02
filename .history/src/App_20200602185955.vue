@@ -2,7 +2,6 @@
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png" />
     <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
-    oska2020, BigBabba_, Purzi, surlaub
   </div>
 </template>
 
@@ -12,8 +11,8 @@ import HelloWorld from "./components/HelloWorld.vue";
 
 @Component({
   components: {
-    HelloWorld,
-  },
+    HelloWorld
+  }
 })
 export default class App extends Vue {}
 </script>
