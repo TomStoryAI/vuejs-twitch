@@ -72,7 +72,7 @@ export default class TheCalculator extends Vue {
         numberQueue.push(number1! - number2!);
       }
     }
-    console.log(numberQueue);
+    this.message = numberQueue.pop() + "";
   }
 }
 </script>
