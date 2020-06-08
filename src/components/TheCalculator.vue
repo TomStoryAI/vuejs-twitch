@@ -1,7 +1,7 @@
 <template>
   <div class="calculator">
     <div class="row">
-      <div class="result">{{message}}</div>
+      <div class="result">{{ message }}</div>
     </div>
     <div class="row">
       <button v-on:click="addToText" class="column">1</button>
@@ -40,39 +40,48 @@ export default class TheCalculator extends Vue {
   }
 
   // Versuch 1 Schleifendurchlauf split 2.ter schleifendurchlauf berechnung
-  calcResult(event: MouseEvent) {
-    const numberQueue: number[] = [];
-    const operatorQueue: string[] = [];
+  calcResult() {
+    // Zahl 1
+    // Operator #firstRun
+    // Zahl2 | Zahl 1
+    // Operator
+    // Zahl3 |
     const messageCharacters = Array.from(this.message);
-    let number = "";
-    messageCharacters.forEach(element => {
+    let stringOne = "";
+    let stringTwo = "";
+    let numberTotal = 0;
+    let operation = "";
+    messageCharacters.forEach((element) => {
       if (element == "+") {
-        numberQueue.push(Number.parseInt(number));
-        operatorQueue.push("+");
-        number = "";
+        if (operation == "") {
+          operation = "+";
+        } else {
+          numberTotal = parseInt(stringOne) + parseInt(stringTwo);
+          stringOne = numberTotal + "";
+          stringTwo = "";
+        }
       } else if (element == "-") {
-        numberQueue.push(Number.parseInt(number));
-        operatorQueue.push("-");
-        number = "";
-      } else {
-        number += element;
+        if (operation == "") {
+          operation = "-";
+        } else {
+          numberTotal = parseInt(stringOne) - parseInt(stringTwo);
+          stringOne = numberTotal + "";
+          stringTwo = "";
+        }
+      } else if (operation == "") {
+        stringOne += element;
+      } else if (operation != "") {
+        stringTwo += element;
       }
     });
-    numberQueue.push(Number.parseInt(number));
-    console.log(numberQueue);
-    console.log(operatorQueue);
-    while (numberQueue.length != 1) {
-      console.log(numberQueue);
-      const number1 = numberQueue.shift();
-      const number2 = numberQueue.shift();
-      const operand = operatorQueue.shift();
-      if (operand == "+") {
-        numberQueue.push(number1! + number2!);
-      } else if (operand == "-") {
-        numberQueue.push(number1! - number2!);
-      }
+    if (operation == "+") {
+      numberTotal = parseInt(stringOne) + parseInt(stringTwo);
     }
-    this.message = numberQueue.pop() + "";
+    if (operation == "-") {
+      numberTotal = parseInt(stringOne) - parseInt(stringTwo);
+    }
+
+    this.message = numberTotal + "";
   }
 }
 </script>
