@@ -4,6 +4,9 @@
       <div class="result">{{ message }}</div>
     </div>
     <div class="row">
+      <button @click="clearText" class="column">C</button>
+    </div>
+    <div class="row">
       <button @click="addToText" class="column">1</button>
       <button @click="addToText" class="column">2</button>
       <button @click="addToText" class="column">3</button>
@@ -33,14 +36,19 @@ import { Component, Vue } from "vue-property-decorator";
 
 @Component
 export default class TheCalculator extends Vue {
-  private message = "0";
+  INITIAL_TEXT_FOR_CALCULATOR = "0";
+  private message = this.INITIAL_TEXT_FOR_CALCULATOR;
   keyMapping = new Map();
+
+  clearText() {
+    console.log("Clearing Calculator");
+    this.message = this.INITIAL_TEXT_FOR_CALCULATOR;
+  }
 
   keyToText(key: string) {
     console.log("wasup bro");
     this.message += key;
     console.log(this.message);
-    this.$forceUpdate;
   }
 
   addToText(event: MouseEvent) {
@@ -49,6 +57,7 @@ export default class TheCalculator extends Vue {
   }
 
   calcResult() {
+    console.log("calcResult" + this.message);
     const messageCharacters = Array.from(this.message);
     let stringOne = "";
     let stringTwo = "";
@@ -119,9 +128,12 @@ export default class TheCalculator extends Vue {
 
   keyPress(e: KeyboardEvent) {
     const key = e.which || e.keyCode;
+
     console.log("Caught Key Event for:" + key);
     if (key == 13) {
       this.calcResult();
+    } else if (key == 67) {
+      this.clearText();
     } else if (this.keyMapping.has(key + "")) {
       this.keyToText(this.keyMapping.get(key + ""));
     }
