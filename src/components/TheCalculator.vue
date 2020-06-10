@@ -51,22 +51,37 @@ export default class TheCalculator extends Vue {
     let stringTwo = "";
     let numberTotal = 0;
     let operation = "";
-    messageCharacters.forEach((element) => {
+    if (messageCharacters[0] == "-") {
+      messageCharacters.unshift("0");
+    }
+
+    // 0-100+200
+    messageCharacters.forEach(element => {
       if (element == "+") {
         if (operation == "") {
           operation = "+";
         } else {
-          numberTotal = parseInt(stringOne) + parseInt(stringTwo);
+          if (operation == "+") {
+            numberTotal = parseInt(stringOne) + parseInt(stringTwo);
+          } else {
+            numberTotal = parseInt(stringOne) - parseInt(stringTwo);
+          }
           stringOne = numberTotal + "";
           stringTwo = "";
+          operation = "+";
         }
       } else if (element == "-") {
         if (operation == "") {
           operation = "-";
         } else {
-          numberTotal = parseInt(stringOne) - parseInt(stringTwo);
+          if (operation == "+") {
+            numberTotal = parseInt(stringOne) + parseInt(stringTwo);
+          } else {
+            numberTotal = parseInt(stringOne) - parseInt(stringTwo);
+          }
           stringOne = numberTotal + "";
           stringTwo = "";
+          operation = "-";
         }
       } else if (operation == "") {
         stringOne += element;
@@ -74,11 +89,14 @@ export default class TheCalculator extends Vue {
         stringTwo += element;
       }
     });
+    console.log(numberTotal);
     if (operation == "+") {
       numberTotal = parseInt(stringOne) + parseInt(stringTwo);
+      console.log(numberTotal);
     }
     if (operation == "-") {
       numberTotal = parseInt(stringOne) - parseInt(stringTwo);
+      console.log(numberTotal);
     }
 
     this.message = numberTotal + "";

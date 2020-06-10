@@ -25,6 +25,10 @@ describe("Calculations", () => {
     simpleTestCase("-1+1", "0");
   });
 
+  it("more complex calculation", () => {
+    simpleTestCase("-100+100-1000+9000", "8000");
+  });
+
   it("performs basic multi-subtraction", () => {
     simpleTestCase("10-10-99", "-99");
   });
