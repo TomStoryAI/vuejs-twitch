@@ -4,48 +4,51 @@
       <div class="result">{{ message }}</div>
     </div>
     <div class="row">
-      <button v-on:click="addToText" class="column">1</button>
-      <button v-on:click="addToText" class="column">2</button>
-      <button v-on:click="addToText" class="column">3</button>
+      <button @click="addToText" class="column">1</button>
+      <button @click="addToText" class="column">2</button>
+      <button @click="addToText" class="column">3</button>
     </div>
     <div class="row">
-      <button v-on:click="addToText" class="column">4</button>
-      <button v-on:click="addToText" class="column">5</button>
-      <button v-on:click="addToText" class="column">6</button>
+      <button @click="addToText" class="column">4</button>
+      <button @click="addToText" class="column">5</button>
+      <button @click="addToText" class="column">6</button>
     </div>
     <div class="row">
-      <button v-on:click="addToText" class="column">7</button>
-      <button v-on:click="addToText" class="column">8</button>
-      <button v-on:click="addToText" class="column">9</button>
+      <button @click="addToText" class="column">7</button>
+      <button @click="addToText" class="column">8</button>
+      <button @click="addToText" class="column">9</button>
     </div>
     <div class="row">
-      <button v-on:click="addToText" class="column">+</button>
-      <button v-on:click="addToText" class="column">0</button>
-      <button v-on:click="addToText" class="column">-</button>
+      <button @click="addToText" class="column">+</button>
+      <button @click="addToText" class="column">0</button>
+      <button @click="addToText" class="column">-</button>
     </div>
     <div class="row">
-      <button v-on:click="calcResult" class="column">=</button>
+      <button @click="calcResult" class="column">=</button>
     </div>
   </div>
 </template>
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 
 @Component
 export default class TheCalculator extends Vue {
   private message = "0";
+  keyMapping = new Map();
+
+  keyToText(key: string) {
+    console.log("wasup bro");
+    this.message += key;
+    console.log(this.message);
+    this.$forceUpdate;
+  }
+
   addToText(event: MouseEvent) {
     const button = event.target as HTMLElement;
     this.message += button.innerText;
   }
 
-  // Versuch 1 Schleifendurchlauf split 2.ter schleifendurchlauf berechnung
   calcResult() {
-    // Zahl 1
-    // Operator #firstRun
-    // Zahl2 | Zahl 1
-    // Operator
-    // Zahl3 |
     const messageCharacters = Array.from(this.message);
     let stringOne = "";
     let stringTwo = "";
@@ -55,7 +58,6 @@ export default class TheCalculator extends Vue {
       messageCharacters.unshift("0");
     }
 
-    // 0-100+200
     messageCharacters.forEach(element => {
       if (element == "+") {
         if (operation == "") {
@@ -89,17 +91,49 @@ export default class TheCalculator extends Vue {
         stringTwo += element;
       }
     });
-    console.log(numberTotal);
     if (operation == "+") {
       numberTotal = parseInt(stringOne) + parseInt(stringTwo);
-      console.log(numberTotal);
     }
     if (operation == "-") {
       numberTotal = parseInt(stringOne) - parseInt(stringTwo);
-      console.log(numberTotal);
     }
 
     this.message = numberTotal + "";
+  }
+
+  initMap() {
+    console.log("Initializing keys for calcultor");
+    this.keyMapping.set("96", "0");
+    this.keyMapping.set("97", "1");
+    this.keyMapping.set("98", "2");
+    this.keyMapping.set("99", "3");
+    this.keyMapping.set("100", "4");
+    this.keyMapping.set("101", "5");
+    this.keyMapping.set("102", "6");
+    this.keyMapping.set("103", "7");
+    this.keyMapping.set("104", "8");
+    this.keyMapping.set("105", "9");
+    this.keyMapping.set("107", "+");
+    this.keyMapping.set("109", "-");
+  }
+
+  keyPress(e: KeyboardEvent) {
+    const key = e.which || e.keyCode;
+    console.log("Caught Key Event for:" + key);
+    if (key == 13) {
+      this.calcResult();
+    } else if (this.keyMapping.has(key + "")) {
+      this.keyToText(this.keyMapping.get(key + ""));
+    }
+  }
+
+  destroyed() {
+    window.removeEventListener("keydown", this.keyPress);
+  }
+
+  mounted() {
+    this.initMap();
+    window.addEventListener("keydown", this.keyPress);
   }
 }
 </script>
