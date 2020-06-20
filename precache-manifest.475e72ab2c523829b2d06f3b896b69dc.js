@@ -4,7 +4,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/vuejs-twitch/css/about.99415dee.css"
   },
   {
-    "revision": "35f06f8c8cb45b2f1572",
+    "revision": "a89ba2109ede6fde2574",
     "url": "/vuejs-twitch/css/app.4b5652d6.css"
   },
   {
@@ -12,7 +12,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/vuejs-twitch/img/logo.82b9c7a5.png"
   },
   {
-    "revision": "0aa84eac1387b135901ecba279a5b5bb",
+    "revision": "c0991e3c9c0490f4f57707d0ff6f4399",
     "url": "/vuejs-twitch/index.html"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/vuejs-twitch/js/about.91893025.js"
   },
   {
-    "revision": "35f06f8c8cb45b2f1572",
-    "url": "/vuejs-twitch/js/app.5ea5a55c.js"
+    "revision": "a89ba2109ede6fde2574",
+    "url": "/vuejs-twitch/js/app.111eb725.js"
   },
   {
     "revision": "d8dd547ac605f4f54d09",

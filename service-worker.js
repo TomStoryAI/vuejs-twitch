@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/vuejs-twitch/precache-manifest.df71ee1a286d38a169cc72fb58380362.js"
+  "/vuejs-twitch/precache-manifest.475e72ab2c523829b2d06f3b896b69dc.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "vuejs-twitch"});
